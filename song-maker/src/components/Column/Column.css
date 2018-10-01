@@ -1,0 +1,16 @@
+.column {
+  border-right: 1px solid #5bc1f483;
+  width: 3.125vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.column:nth-child(2n) {
+  border-right: 1px solid #16a8f0;
+}
+
+.column:last-child{
+  border-right: none;
+}

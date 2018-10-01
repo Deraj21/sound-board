@@ -1,0 +1,13 @@
+.note {
+  border-bottom: 1px solid #5bc1f483;
+  height: 4.6875vh;
+  box-sizing: border-box;
+}
+
+.note:nth-child(7n){
+  border-bottom: 3px solid #5bc1f483;
+}
+
+.note:last-child {
+  border-bottom: none;
+}
