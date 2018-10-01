@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import "./Footer.css";
+import { connect } from 'react-redux';
+import { updateTempo, updatePlaying, clearColumnsData } from '../../ducks/reducer';
 
 class Footer extends Component {
-  constructor(props){
-    super(props)
-
-    this.state = {
-      tempo: 120
-    }
-  }
 
   changeSymbol(target){
     let name = '';
@@ -21,21 +16,21 @@ class Footer extends Component {
     let symbol = document.querySelector('.' + name);
     if (symbol.className === 'stop'){
       symbol.className = 'play';
+      this.props.updatePlaying(false);
     } else {
       symbol.className = 'stop';
+      this.props.updatePlaying(true);
     }
   }
 
-  handleChange(e){
-    this.setState({ tempo: e.target.value });
-  }
-
   clear(){
-    console.log('clear board');
+    this.props.clearColumnsData();
+    let noteNodeList = document.querySelectorAll('.note');
+    noteNodeList.forEach(note => note.style['background-color'] = 'white');
   }
 
   render() {
-    let { tempo } = this.state;
+    let { tempo } = this.props;
 
     return (
       <div className="footer">
@@ -44,7 +39,7 @@ class Footer extends Component {
         </button>
         <div className="tempo-slider">
           <p>Tempo</p>
-          <input onChange={e => this.handleChange(e)} type="range" max="240" min="40" value={tempo} />
+          <input onChange={e => this.props.updateTempo(e.target.value)} type="range" max="240" min="40" value={tempo} />
           <p id="tempo-number">{tempo}</p>
         </div>
         <button id="clear-btn" onClick={() => this.clear() } >CLEAR</button>
@@ -53,4 +48,9 @@ class Footer extends Component {
   }
 }
 
-export default Footer;
+function mapStateToProps(state){
+  let { tempo } = state;
+  return { tempo };
+}
+
+export default connect(mapStateToProps, { updateTempo, updatePlaying, clearColumnsData })(Footer);

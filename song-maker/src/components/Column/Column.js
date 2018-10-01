@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Note from '../Note/Note';
 import './Column.css';
+import { connect } from 'react-redux';
 
-export default function Column(col, notesData) {
+class Column extends Component {
 
-  let notes = [];
-  for (let i = 0; i < 16; i++){
-    notes.push( Note(i, col, notesData[i]) );
+  render() {
+    let { col, columnsData } = this.props;
+
+    let notes = columnsData[col].map((note, row) => <Note col={col} row={row} />);
+
+    return (
+      <div className="column unlit">
+        { notes }
+      </div>
+    );
   }
 
-  return (
-    <div className="column unlit">
-      { notes }
-    </div>
-  );
 }
+
+function mapStateToProps(state){
+  let { playing, columnsData } = state;
+  return { playing, columnsData };
+}
+
+export default connect(mapStateToProps)(Column);
