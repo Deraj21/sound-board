@@ -4,7 +4,7 @@
 /node_modules
 
 # media
-/sounds
+/src/sounds
 
 # testing
 /coverage
