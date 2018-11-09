@@ -3,6 +3,20 @@ import "./Footer.css";
 import { connect } from 'react-redux';
 import { updateTempo, updatePlaying, clearColumnsData } from '../../ducks/reducer';
 
+/**
+ * Working on right now:
+ *  - trying to get react to recognize the src on the audio element. it seems to think that it should be looking on localhost:3000/file/path/to/audio
+ * 
+ * Next to work on:
+ *  - work on getting the timing going
+ *  - highlight columns in time
+ *  - play an audio in time
+ *  - get tempo working
+ *  - get playing the correct audios at right time
+ *  - etc.
+ *
+ */
+
 class Footer extends Component {
 
   changeSymbol(target){
@@ -29,11 +43,27 @@ class Footer extends Component {
     noteNodeList.forEach(note => note.style['background-color'] = 'white');
   }
 
+  playAudio(str){
+    let audio = document.querySelector(str);
+    console.log(audio);
+    audio.play()
+      .then(res => console.log(res))
+      .catch(err => console.log(err.message));
+  }
+
   render() {
     let { tempo } = this.props;
 
     return (
       <div className="footer">
+
+        <audio className="test-audio"
+          controls
+          auto="false"
+          src="./../../sounds/piano-a1.wav" >
+        </audio>
+        <div style={{cursor: 'pointer'}} onClick={() => this.playAudio(".test-audio")} >Hello!</div>
+        
         <button onClick={e => this.changeSymbol(e.target)} className="play-pause" children="true">
           <div className="play"></div>
         </button>

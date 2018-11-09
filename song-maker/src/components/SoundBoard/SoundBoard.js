@@ -8,11 +8,12 @@ class SoundBoard extends Component {
   render() {
     let { columnsData, playing } = this.props;
 
-    let columns = columnsData.map((column, col) => <Column col={col} /> );
+    let columns = columnsData.map((column, col) => <Column col={col} key={col} /> );
 
     return (
       <div className="sound-board">
         { columns }
+
       </div>
     );
   }

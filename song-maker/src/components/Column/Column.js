@@ -8,7 +8,7 @@ class Column extends Component {
   render() {
     let { col, columnsData } = this.props;
 
-    let notes = columnsData[col].map((note, row) => <Note col={col} row={row} />);
+    let notes = columnsData[col].map((note, row) => <Note col={col} row={row} key={`${col}-${row}`} />);
 
     return (
       <div className="column unlit">
